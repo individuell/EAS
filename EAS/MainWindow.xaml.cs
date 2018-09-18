@@ -43,7 +43,18 @@ namespace EAS
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             if (SettingsList.Instance.StartMinimized)
+            {
                 this.WindowState = WindowState.Minimized;
+            }
+            else if (SettingsList.Instance.RememberWindowPosition)
+            {
+                this.Top = SettingsList.Instance.WindowPositionTop;
+                this.Left = SettingsList.Instance.WindowPositionLeft;
+                this.Height = SettingsList.Instance.WindowHeight;
+                this.Width = SettingsList.Instance.WindowWidth;
+                if (SettingsList.Instance.MaximizedState)
+                    this.WindowState = WindowState.Maximized;
+            }
         }
 
         private void TextBoxHotKey_PreviewKeyDown(object sender, KeyEventArgs e)
@@ -93,6 +104,33 @@ namespace EAS
             {
                 e.Cancel = true;
                 this.WindowState = WindowState.Minimized;
+            }
+            else
+            {
+                if (SettingsList.Instance.RememberWindowPosition)
+                {
+                    Dispatcher.Invoke(delegate
+                    {
+                        if (WindowState == WindowState.Maximized)
+                        {
+                            // Use the RestoreBounds as the current values will be 0, 0 and the size of the screen
+                            SettingsList.Instance.WindowPositionTop = RestoreBounds.Top;
+                            SettingsList.Instance.WindowPositionLeft = RestoreBounds.Left;
+                            SettingsList.Instance.WindowHeight = RestoreBounds.Height;
+                            SettingsList.Instance.WindowWidth = RestoreBounds.Width;
+                            SettingsList.Instance.MaximizedState = true;
+                        }
+                        else if (WindowState == WindowState.Normal)
+                        {
+                            SettingsList.Instance.WindowPositionTop = this.Top;
+                            SettingsList.Instance.WindowPositionLeft = this.Left;
+                            SettingsList.Instance.WindowHeight = this.Height;
+                            SettingsList.Instance.WindowWidth = this.Width;
+                            SettingsList.Instance.MaximizedState = false;
+                        }
+                        SettingsList.Save();
+                    });
+                }
             }
         }
     }

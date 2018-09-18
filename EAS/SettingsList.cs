@@ -29,6 +29,18 @@ namespace EAS
 
         public bool StartMinimized { get; set; }
 
+        public bool RememberWindowPosition { get; set; }
+
+        public double WindowPositionTop { get; set; }
+
+        public double WindowPositionLeft { get; set; }
+
+        public double WindowHeight { get; set; }
+
+        public double WindowWidth { get; set; }
+
+        public bool MaximizedState { get; set; }
+
         #endregion
 
         #region Constructor
@@ -73,6 +85,7 @@ namespace EAS
                 Instance.MinimizeOnExit = true;
                 Instance.StartWithWindows = false;
                 Instance.StartMinimized = false;
+                Instance.RememberWindowPosition = false;
             }
         }
 

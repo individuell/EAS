@@ -50,6 +50,17 @@ namespace EAS.ViewModels
             }
         }
 
+        private bool _rememberWindowPosition;
+        public bool RememberWindowPosition
+        {
+            get { return _rememberWindowPosition; }
+            set
+            {
+                _rememberWindowPosition = value;
+                OnPropertyChanged("RememberWindowPosition");
+            }
+        }
+
         public Action OnCloseSettingsAction { get; set; }
 
         #endregion
@@ -87,6 +98,7 @@ namespace EAS.ViewModels
             StartWithWindows = SettingsList.Instance.StartWithWindows;
             MinimizeOnExit = SettingsList.Instance.MinimizeOnExit;
             StartMinimized = SettingsList.Instance.StartMinimized;
+            RememberWindowPosition = SettingsList.Instance.RememberWindowPosition;
         }
 
         #endregion
@@ -101,6 +113,7 @@ namespace EAS.ViewModels
             SettingsList.Instance.MinimizeOnExit = MinimizeOnExit;
             SettingsList.Instance.StartWithWindows = StartWithWindows;
             SettingsList.Instance.StartMinimized = StartMinimized;
+            SettingsList.Instance.RememberWindowPosition = RememberWindowPosition;
             SettingsList.Save();
             OnCloseSettingsAction?.Invoke();
         }
