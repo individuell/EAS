@@ -7,7 +7,7 @@
         xmlns:fa="http://schemas.fontawesome.io/icons/"
         xmlns:local="clr-namespace:EAS"
         mc:Ignorable="d" Background="#322D3C" FontFamily="Segoe WP Semibold"
-        Title="Settings" Height="250" Width="300" Foreground="White" ResizeMode="NoResize" ShowMinButton="False">
+        Title="Settings" Height="265" Width="300" Foreground="White" ResizeMode="NoResize" ShowMinButton="False">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -35,6 +35,9 @@
             </CheckBox>
             <CheckBox IsChecked="{Binding StartMinimized}" Margin="5">
                 <TextBlock Text="Start minimized" Foreground="LightGray"/>
+            </CheckBox>
+            <CheckBox IsChecked="{Binding RememberWindowPosition}" Margin="5">
+                <TextBlock Text="Remember Window Size/Position" Foreground="LightGray"/>
             </CheckBox>
         </WrapPanel>
 
